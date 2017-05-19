@@ -6,12 +6,14 @@ export default Ember.Route.extend({
   },
   actions: {
     signIn: function(provider) {
+      var route = this;
       this.get('session').open('firebase', { provider: provider}).then(function(data) {
+        route.transitionTo('welcome');
         console.log(data.currentUser);
       });
     },
     signOut: function() {
-      this.transitionTo('welcome')
+      // this.transitionTo('index');
       this.get('session').close();
     }
   }

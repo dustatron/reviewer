@@ -1,8 +1,14 @@
+
+<div class='page-header'>
+    <h1>Welcome, you are signed in!</h1>
+</div>
+<div class='panel panel-default'>
+    <div class='panel-heading'>Email: {{session.currentUser.email}}</div>
+      <div class='panel-heading'>Name: {{session.currentUser.displayName}}</div>
+
+    <div class='panel-body'>
+      image below
+        <img src="{{session.currentUser.photoURL}}" />
+    </div>
+</div>
 {{outlet}}
-<section>
-{{#each model as |post|}}
-  <div>{{post.title}}</div>
-  <div>{{post.body}}</div>
-  <hr>
-{{/each}}
-</section>

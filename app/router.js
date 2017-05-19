@@ -7,8 +7,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.authenticatedRoute('posts');
   this.route('welcome');
+  this.authenticatedRoute('posts');
 });
 
 export default Router;
