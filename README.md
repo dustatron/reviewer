@@ -1,7 +1,6 @@
-# auth-me
+# Reviewer
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This project is an attempt to learn the firebase / ember login system.
 
 ## Prerequisites
 
