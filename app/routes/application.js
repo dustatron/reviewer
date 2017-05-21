@@ -10,13 +10,23 @@ export default Ember.Route.extend({
       var route = this;
       this.get('session').open('firebase', { provider: provider}).then(function(data) {
         route.transitionTo('welcome');
-        let newUser = route.store.createRecord('user', {
-          uid: data.currentUser.uid,
-          email: data.currentUser.email,
-          name: data.currentUser.displayName,
-          photo: data.currentUser.photoURL
-        });
-        newUser.save();
+                route.store.query('user', { filter: { uid: data.currentUser.uid} })
+                .then(function(tomster) {
+                  console.log(tomster);
+                });
+
+              //   }else{
+              //     console.log('false');
+              //     var addUser = function(){
+              //         route.store.createRecord('user',{
+              //         uid: data.currentUser.uid,
+              //         email: data.currentUser.email,
+              //         name: data.currentUser.displayName,
+              //         photo: data.currentUser.photoURL
+              //     });
+              //     addUser.save();
+              //   }; // end addUser
+              // }// end else
 
         console.log(data.currentUser);
       });
