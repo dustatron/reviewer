@@ -5,12 +5,15 @@ export default Ember.Controller.extend({
   sortAscending: false, // sorts post by timestamp
   actions: {
     publishPost: function() {
-      var newPost = this.store.createRecord('post', {
+      var controller = this;
+      this.store.createRecord('post', {
         title: this.get('title'),
         body: this.get('body'),
-        timestamp: new Date().getTime()
+        uid: this.get('session.uid'),
+        timestamp: new Date().getTime(),
+      }).save().then(function() {
+        controller.transitionToRoute('index');
       });
-      newPost.save();
     }
   }
 });
