@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
         title: this.get('title'),
         body: this.get('body'),
         uid: this.get('session.uid'),
-        timestamp: new Date().getTime(),
+        date: new Date()
       }).save().then(function() {
         controller.transitionToRoute('index');
       });

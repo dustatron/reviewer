@@ -1,0 +1,14 @@
+<div class="container">
+  {{#each model as |user|}}
+  <div class="">
+    email = {{user.email}}
+  </div>
+  {{/each}}
+
+  email from model = {{model.name}}
+  <div class="">
+    name = {{session.currentUser.displayName}}
+
+  </div>
+</div>
+{{outlet}}

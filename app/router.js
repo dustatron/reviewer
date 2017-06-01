@@ -7,8 +7,16 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('welcome');
-  this.authenticatedRoute('posts');
+  this.route('index', { path: '/' });
+  this.route('about');
+  this.route('contact');
+
+  this.authenticatedRoute('welcome');
+  this.authenticatedRoute('profile');
+  this.authenticatedRoute('posts', function() {
+    this.route('comments');
+  });
+
 });
 
 export default Router;
