@@ -1,48 +1,32 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   beforeModel: function() {
     return this.get('session').fetch().catch(function() {});
   },
   actions: {
-    signIn: function(provider) {
+    signIn: function() {
       var route = this;
-      this.get('session').open('firebase', { provider: provider}).then(function(data) {
-        route.transitionTo('welcome');
-                route.store.query('user', { filter: { uid: data.currentUser.uid} })
-                .then(function(tomster) {
-                  console.log(tomster);
-                });
-
-              //   }else{
-              //     console.log('false');
-              //     var addUser = function(){
-              //         route.store.createRecord('user',{
-              //         uid: data.currentUser.uid,
-              //         email: data.currentUser.email,
-              //         name: data.currentUser.displayName,
-              //         photo: data.currentUser.photoURL
-              //     });
-              //     addUser.save();
-              //   }; // end addUser
-              // }// end else
-
-        console.log(data.currentUser);
+      this.get('session').open('firebase', { provider: 'google' }).then(function(data) {
+        route.store.query('user', { orderBy: 'uid', equalTo: data.currentUser.uid }).then(function(results) {
+          if(results.get('length') === 0) {
+            route.store.createRecord('user', {
+              uid: data.currentUser.uid,
+              email: data.currentUser.email,
+              name: data.currentUser.displayName,
+              photo: data.currentUser.photoURL,
+            }).save().then(function() {
+              route.transitionTo('welcome');
+            });
+          } else {
+            route.transitionTo('welcome');
+          }
+        })
       });
     },
     signOut: function() {
-      // this.transitionTo('index');
       this.get('session').close();
+      this.transitionTo('index');
     }
-  },
-  addUser: function() {
-    let newUser = this.store.createRecord('user', {
-      uid: data.currentUser.uid,
-      email: data.currentUser.email,
-      name: data.currentUser.displayName,
-      photo: data.currentUser.photoURL
-    });
-    newUser.save();
   }
 });
